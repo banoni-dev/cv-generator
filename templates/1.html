@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{name}} - CV</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #3AAFA9;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            border-bottom: 2px solid #3AAFA9;
+            padding-bottom: 5px;
+        }
+        .section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .section ul li {
+            margin-bottom: 10px;
+        }
+        .contact-info, .skills, .education, .experience, .languages {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>{{name}}</h1>
+        <h3>{{title}}</h3>
+        <p class="contact-info">
+            <a href="{{linkedin}}">LinkedIn</a> |
+            <a href="mailto:{{email}}">{{email}}</a> |
+            <a href="tel:{{phone}}">{{phone}}</a> |
+            {{location}}
+        </p>
+    </div>
+
+    <div class="section profile-summary">
+        <h2>Profile Summary</h2>
+        <p>{{profileSummary}}</p>
+    </div>
+
+    <div class="section skills">
+        <h2>Skills</h2>
+        <ul>
+            {{#each skills}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+
+    <div class="section education">
+        <h2>Education</h2>
+        <ul>
+            {{#each education}}
+            <li>
+                <strong>{{degree}}</strong> - {{institution}} <br>
+                {{startYear}} - {{endYear}}
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+
+    <div class="section experience">
+        <h2>Experience</h2>
+        <ul>
+            {{#each experience}}
+            <li>
+                <strong>{{position}}</strong> - {{company}} <br>
+                {{startDate}} - {{endDate}} <br>
+                <ul>
+                    {{#each responsibilities}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+
+    <div class="section languages">
+        <h2>Languages</h2>
+        <ul>
+            {{#each languages}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+</body>
+</html>
