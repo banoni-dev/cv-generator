@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const Handlebars = require("handlebars");
-const pdf = require("html-pdf-node");
+const htmlPdf = require("html-pdf-node");
 
 const app = express();
 app.use(express.json());
@@ -87,19 +87,24 @@ app.post("/generate-pdf", async (req, res) => {
   // Generate the HTML content
   const html = template(data);
 
-  // Convert HTML to PDF
+  // Define the PDF options
   const options = { format: "A4" };
-  const file = { content: html };
 
-  pdf.generatePdf(file, options).then((pdfBuffer) => {
-    res
-      .writeHead(200, {
-        "Content-Length": Buffer.byteLength(pdfBuffer),
-        "Content-Type": "application/pdf",
-        "Content-Disposition": "attachment;filename=cv.pdf",
-      })
-      .end(pdfBuffer);
-  });
+  // Generate the PDF
+  htmlPdf
+    .generatePdf({ content: html }, options)
+    .then((pdfBuffer) => {
+      res
+        .writeHead(200, {
+          "Content-Length": pdfBuffer.length,
+          "Content-Type": "application/pdf",
+          "Content-Disposition": "attachment;filename=cv.pdf",
+        })
+        .end(pdfBuffer);
+    })
+    .catch((err) => {
+      res.status(500).send("Error generating PDF");
+    });
 });
 
 app.listen(3000, () => {
